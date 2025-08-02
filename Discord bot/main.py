@@ -29,12 +29,26 @@ bot = commands.Bot(command_prefix='!', intents=intents)
 
 @bot.event
 async def on_ready():
+    # --- UPDATED: Using a Custom Activity Status ---
+    # This type of activity can include an emoji for a more unique look.
+    activity = discord.CustomActivity(name="Use /talk to begin a conversation", emoji="💬")
+    await bot.change_presence(status=discord.Status.online, activity=activity)
+
+    # Sync slash commands
     try:
         synced = await bot.tree.sync()
         print(f"Synced {len(synced)} command(s)")
     except Exception as e:
         print(e)
-    print(f"{bot.user.name} is Online and ready to talk!") 
+    print(f"{bot.user.name} is Online and ready to talk!")
+    
+    # The rest of your on_ready function
+    try:
+        synced = await bot.tree.sync()
+        print(f"Synced {len(synced)} command(s)")
+    except Exception as e:
+        print(e)
+    print(f"{bot.user.name} is Online and ready to talk!")
 
 async def ai_therapist_response(user_id, user_message):
     if not model:
